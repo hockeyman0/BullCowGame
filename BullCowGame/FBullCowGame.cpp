@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 void FBullCowGame::Reset()
 {
@@ -29,37 +31,67 @@ bool FBullCowGame::IsGameWon() const
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-    if (false)// if the guess isn't an isogram, return error Not_Isogram
+    if (!IsIsogram(Guess))// TODO if the guess isn't an isogram, return error Not_Isogram
     {
         return EGuessStatus::Not_Isogram;
     }
-    // if the guess isn't all lowercase
-    else if (false) 
+    else if (!IsLowercase(Guess)) // TODO if the guess isn't all lowercase
     {
         return EGuessStatus::Not_Lowercase;
     } 
-    // if the guess length is wrong
-    else if (Guess.length() != GetHiddenWordLength()) 
+    else if (Guess.length() != GetHiddenWordLength())  //checks for invalid lengths
     {
         return EGuessStatus::Wrong_Length;
     }
-    // if the guess contains invalid characters
-    else if (CheckInvalidCharacters(Guess))
+    else if (CheckInvalidCharacters(Guess)) //checks for invalid characters
     {
         return EGuessStatus::Invalid_Character;
     }
 
-    return EGuessStatus::OK; // TODO make actual error
+    return EGuessStatus::OK;
 }
 
-bool FBullCowGame::CheckInvalidCharacters(FString Guess) const
+bool FBullCowGame::CheckInvalidCharacters(FString Word) const
 {
-    for (int32 i = 0; i < MyInvalidCharacters.length(); i++) {
-        if (Guess.find(MyInvalidCharacters[i]) != std::string::npos) {
+    for (char Letter : MyInvalidCharacters) {
+        if (Word.find(Letter) != std::string::npos) {
             return true;
         }
     }
     return false;
+}
+
+bool FBullCowGame::IsIsogram(FString Word) const
+{
+    // treat 0 and 1 letter words as isograms
+    if (Word.length() <= 1 ){ return true; }
+
+    TMap<char, bool> LetterSeen;
+    for (auto Letter : Word)
+    {
+        Letter = tolower(Letter);
+        if (LetterSeen[Letter]) 
+        {
+            return false; 
+        } else {
+            LetterSeen[Letter] = true;
+        }
+    }
+        //if value already false then make it true
+        //if value already true then break look and return false
+    return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const
+{
+    if (Word.length() == 0) { return true; }
+
+    for (auto Letter : Word) {
+        if (!islower(Letter)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 

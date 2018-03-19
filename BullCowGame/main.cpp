@@ -104,7 +104,7 @@ FText GetValidGuess() {
             std::cout << "Please enter a guess in all lowercase characters.\n";
             break;
         case EGuessStatus::Not_Isogram:
-            std::cout << "NOT AN ISOGRAM\n";
+            std::cout << "Isograms do not have repeating letters.\n";
             break;
         case EGuessStatus::Invalid_Character:
             std::cout << "Do not enter any special characters!\n";
@@ -127,7 +127,7 @@ bool AskToPlayAgain() {
     FText Response = "";
     do
     {
-        std::cout << "Would you like to play again? (y/n): ";
+        std::cout << "Would you like to play again with the same word..? (y/n): ";
         std::getline(std::cin, Response);
         std::cout << "\n";
         if (Response[0] == 'y' || Response[0] == 'Y') {

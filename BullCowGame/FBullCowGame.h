@@ -4,6 +4,7 @@
 using FString = std::string;
 using int32 = int;
 
+
 // all values initialized to zero
 struct FBullCowCount {
     int32 Bulls = 0;
@@ -31,6 +32,8 @@ public:
     int32 GetHiddenWordLength() const;
     EGuessStatus CheckGuessValidity(FString) const;
     bool CheckInvalidCharacters(FString) const;
+    bool IsIsogram(FString) const;
+    bool IsLowercase(FString) const;
     void Reset();  // TODO make a more rich return value.
     
     // provide a method for counting bulls & cows, and increasing turn #
