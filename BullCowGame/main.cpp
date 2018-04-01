@@ -2,18 +2,17 @@
 This acts as the view in an MVC pattern, and is repsonsible for all user interaction.
 For game logic see the FBullCowGame class.
 */
-
+#pragma once
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
-//using namespace std;
+//NOT using namespace std;
+//Mapping to Unreal syntax
 using FText = std::string;
 using int32 = int;
 
-// constexpr int32 WORD_LENGTH = 5;
 FBullCowGame BCGame;
-
 
 
 void PrintIntro();
@@ -25,9 +24,7 @@ void PrintGameSummary();
 
 int main()
 {
-    // introduce the game 
   
-    
     bool bPlayAgain = false;
     do {
         PrintIntro();
@@ -71,6 +68,7 @@ void PrintGameSummary() {
     }
 }
 
+// Ascii Intro to game
 void PrintIntro() {
     std::cout << "Hello World!!\n";
     std::cout << "Can you guess the " << BCGame.GetHiddenWordLength() << " letter isogram I'm thinking of?\n";

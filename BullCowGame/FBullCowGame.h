@@ -34,7 +34,7 @@ public:
     bool CheckInvalidCharacters(FString) const;
     bool IsIsogram(FString) const;
     bool IsLowercase(FString) const;
-    void Reset();  // TODO make a more rich return value.
+    void Reset();  // SKIP TODO make a more rich return value.
     
     // provide a method for counting bulls & cows, and increasing turn #
 
@@ -42,7 +42,6 @@ public:
     FBullCowCount SubmitValidGuess(FString);
 private:
     int32 MyCurrentTry;
-    int32 MyMaxTries;
     FString MyHiddenWord;
     FString MyInvalidCharacters;
     //FString MyCurrentGuess;

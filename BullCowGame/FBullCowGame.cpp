@@ -5,9 +5,8 @@
 void FBullCowGame::Reset()
 {
     constexpr int32 MAX_TRIES = 8;
-    MyMaxTries = MAX_TRIES;
 
-    const FString HIDDEN_WORD = "planet";
+    const FString HIDDEN_WORD = "plane";
     MyHiddenWord = HIDDEN_WORD;
 
     const FString INVALID_CHARACTERS = "!@#$%^&*()_+1234567890-={}[] ";
@@ -19,31 +18,38 @@ void FBullCowGame::Reset()
     return;
 }
 
-FBullCowGame::FBullCowGame() { Reset(); }
+FBullCowGame::FBullCowGame() { Reset(); } // default constructor
 
-int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
+int32 FBullCowGame::GetMaxTries() const {
+    TMap<int32, int32> WordLengthToMaxTries{
+        {3,4},
+        {4,7},
+        {5,10},
+        {6,15},
+        {7,20}
+    };
 
-
-bool FBullCowGame::IsGameWon() const
-{
-    return bGameWon;
+    return WordLengthToMaxTries[MyHiddenWord.length()];
 }
+
+
+bool FBullCowGame::IsGameWon() const { return bGameWon; }
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-    if (!IsIsogram(Guess))// TODO if the guess isn't an isogram, return error Not_Isogram
+    if (!IsIsogram(Guess)) // checks if guess is isogram
     {
         return EGuessStatus::Not_Isogram;
     }
-    else if (!IsLowercase(Guess)) // TODO if the guess isn't all lowercase
+    else if (!IsLowercase(Guess)) // checks that guess is all lowercase
     {
         return EGuessStatus::Not_Lowercase;
     } 
-    else if (Guess.length() != GetHiddenWordLength())  //checks for invalid lengths
+    else if (Guess.length() != GetHiddenWordLength()) // checks that guess is proper length
     {
         return EGuessStatus::Wrong_Length;
     }
-    else if (CheckInvalidCharacters(Guess)) //checks for invalid characters
+    else if (CheckInvalidCharacters(Guess)) // checks no invalid characters were used
     {
         return EGuessStatus::Invalid_Character;
     }
@@ -126,12 +132,6 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess)
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 
-FString FBullCowGame::GetHiddenWord() const
-{
-    return MyHiddenWord;
-}
+FString FBullCowGame::GetHiddenWord() const { return MyHiddenWord; }
 
-int32 FBullCowGame::GetHiddenWordLength() const
-{
-    return MyHiddenWord.length();
-}
+int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
